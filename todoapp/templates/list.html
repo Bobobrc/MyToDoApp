@@ -1,0 +1,28 @@
+{% extends 'main.html' %}{% load static %} {% block content %}
+<h2>{{list.name}}</h2>
+<form method="POST">
+  {% csrf_token %}
+  <input type="text" name="task_name" placeholder="Task name" />
+  <input type="text" name="password" placeholder="Password" />
+  <input type="checkbox" name="important" value="True"/>
+  <label for="important">Important</label>
+  <button type="submit" name="Submit" value="add_task">Add!</button>
+</form>
+<form method="POST">
+  {% csrf_token %}
+  {% for task in tasks %}
+  {% if task.important == True %}
+  <a>{{task}}</a>
+  <input type="checkbox" name="done" value="{{task}}"></br>
+  {% elif task.important == False and task.done == False %}
+  <a>{{task}}</a>
+  <input type="checkbox" name="important" value="{{task}}">
+  <input type="checkbox" name="done" value="{{task}}"><br>
+  {% else %}
+  <a>{{task}}</a><br>
+  {% endif %}
+  {% endfor %}
+  <input type="text" name="password" placeholder="Password" />
+  <button type="submit" name="Submit" name="edit_task">Edit!</button>
+</form>
+{% endblock content%}
