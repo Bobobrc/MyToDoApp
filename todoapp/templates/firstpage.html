@@ -1,16 +1,30 @@
 {% extends 'main.html' %}{% load static %} {% block content %}
-<h2>Create a list</h2>
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="list_name" placeholder="List name" />
-  <input type="text" name="password" placeholder="Password" />
-  <button type="submit" name="Submit" value="create_list">Create!</button>
-</form>
-<h2>or</h2>
-<h2>Search a list</h2>
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="list_name" placeholder="List name" />
-  <button type="submit" name="Submit" value="search_list">Search!</button>
-</form>
+<div class="content row">
+  <div class="right-left col-5">
+    <p class="info">Create a list</p>
+    <form method="POST">
+      {% csrf_token %}
+      <b><label for="list_name">List name:</label></b>
+      <br />
+      <input type="text" name="list_name" placeholder="List name" /><br />
+      <b><label for="password">Password:</label></b
+      ><br />
+      <input type="text" name="password" placeholder="Password" /><br />
+      <button class="btn btn-primary" type="submit" name="Submit" value="create_list">Create!</button>
+    </form>
+  </div>
+  <div class="middle col-2">
+    <p class="or">or</p>
+  </div>
+  <div class="right-left col-5">
+    <p class="info">Search a list</p>
+    <form method="POST">
+      {% csrf_token %}
+      <b><label for="list_name">List name:</label></b
+      ><br />
+      <input type="text" name="list_name" placeholder="List name" /><br />
+      <button class="btn btn-primary" type="submit" name="Submit" value="search_list">Search!</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

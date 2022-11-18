@@ -1,0 +1,76 @@
+body {
+  background-color: #7b8a5a;
+}
+
+.all_content {
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 60px;
+  color: black;
+  text-decoration: none;
+}
+.content {
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+  margin-top: 10px;
+}
+.middle {
+  background: white;
+}
+.or {
+  font-size: 50px;
+  margin-top: 50%;
+}
+.right-left {
+  background-color: rgb(224, 224, 112);
+}
+.info {
+  font-size: 50px;
+}
+.list_name {
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+}
+.add_task {
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
+.edit_task {
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+  background-color: rgb(224, 224, 112);
+}
+.tasks {
+  background-color: rgb(224, 224, 112);
+  height: 425px;
+  overflow-y: scroll;
+}
+.important-title {
+  color: red;
+}
+.normal-title {
+  color: white;
+}
+.done-title {
+  color: greenyellow;
+}
+.info {
+  font-size: 20px;
+}
+.message {
+  font-size: 50px;
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 200px;
+  color: white;
+}

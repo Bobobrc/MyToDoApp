@@ -22,19 +22,35 @@ def Lists(request, list_name):
       task_name = request.POST['task_name']
       password = request.POST['password']
       important = request.POST.get('important', False)
-      print(important)
-      print(list.password)
       if password == list.password:
         task = Task(list=list, task_name=task_name, important=important, done=False)
         task.save()
     else:
       password = request.POST['password']
       done = request.POST.getlist('done')
+      important = request.POST.getlist('important')
+      normal = request.POST.getlist('normal')
+      delete = request.POST.getlist('delete')
       if password == list.password:
+        for task in delete:
+          dels = Task.objects.get(list=list, task_name = task)
+          dels.delete()
+        for task in normal:
+          nm = Task.objects.get(list=list, task_name = task)
+          nm.important = False
+          nm.done = False
+          nm.save()
+        for task in important:
+          imp = Task.objects.get(list=list, task_name = task)
+          imp.important = True
+          imp.done = False
+          imp.save()
         for task in done:
-          dn = Task.objects.get(task_name = task)    
+          dn = Task.objects.get(list=list, task_name = task)
           dn.done = True
           dn.save()
     return redirect('list', list_name=list.name)
-  tasks = Task.objects.filter(list__name = list_name)
-  return render(request, 'list.html', {'list':list, 'tasks':tasks})
+  tasks = Task.objects.filter(list__name = list_name, important = False, done = False)
+  important_tasks = Task.objects.filter(list__name=list_name, important = True, done=False)
+  done_tasks = Task.objects.filter(list__name = list_name, done=True)
+  return render(request, 'list.html', {'list':list, 'tasks':tasks, 'important_tasks':important_tasks, 'done_tasks':done_tasks})

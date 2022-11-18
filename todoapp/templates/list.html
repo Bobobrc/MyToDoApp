@@ -1,28 +1,71 @@
 {% extends 'main.html' %}{% load static %} {% block content %}
-<h2>{{list.name}}</h2>
+<div class="list_name">{{list.name}}</div>
+<div class="add_task">
+  <form method="POST">
+    {% csrf_token %}
+    <b><label for="task_name">Task name:</label></b>
+    <input type="text" name="task_name" placeholder="Task name" />
+    <b><label for="password">List password:</label></b>
+    <input type="text" name="password" placeholder="Password" />
+    <input class="form-check-label" type="checkbox" name="important" value="True" />
+    <label class="checkbox_important" for="important">Important</label>
+    <button class="btn btn-primary" type="submit" name="Submit" value="add_task">Add!</button>
+  </form>
+</div>
+<div class=" content row">
+    <div class="important-title col-4">Important tasks</div>
+    <div class="normal-title col-4">Normal tasks</div>
+    <div class="done-title col-4">Done tasks</div>
+  </div>
 <form method="POST">
-  {% csrf_token %}
-  <input type="text" name="task_name" placeholder="Task name" />
-  <input type="text" name="password" placeholder="Password" />
-  <input type="checkbox" name="important" value="True"/>
-  <label for="important">Important</label>
-  <button type="submit" name="Submit" value="add_task">Add!</button>
+  <div class="content row">
+    {% csrf_token %}
+    <div class="tasks col-4">
+      {% for task in important_tasks %}
+      <b><label>{{task}}</label></b><br>
+      <input type="checkbox" name="normal" value="{{task}}" />
+      <label class="" for="normal">&#8469;</label>
+      <input type="checkbox" name="done" value="{{task}}" />
+      <label class="" for="done">&#10003;</label>
+      <input type="checkbox" name="delete" value="{{task}}" />
+      <label for="delete">&#215;</label>
+      </br>
+      {% endfor %}
+    </div>
+    <div class="tasks col-4">
+      {% for task in tasks %}
+      <b><label class="">{{task}}</label></b><br>
+      <input type="checkbox" name="important" value="{{task}}" />
+      <label for="important">&#33;</label>
+      <input type="checkbox" name="done" value="{{task}}" />
+      <label for="done">&#10003;</label>
+      <input type="checkbox" name="delete" value="{{task}}" />
+      <label for="delete">&#215;</label>
+      </br>
+      {% endfor %}
+    </div>
+    <div class="tasks col-4">
+      {% for task in done_tasks %}
+      <b><label>{{task}}</label></b></br>
+      <input type="checkbox" name="normal" value="{{task}}" />
+      <label for="normal">&#8469;</label>
+      <input type="checkbox" name="important" value="{{task}}" />
+      <label for="important">&#33;</label>
+      <input type="checkbox" name="delete" value="{{task}}" />
+      <label for="delete">&#215;</label>
+      </br>
+      {% endfor %}
+    </div>
+    <div class="edit_task">
+      <b><label for="password">List password:</label></b>
+      <input type="text" name="password" placeholder="Password" />
+      <button class="btn btn-primary" type="submit" name="Submit" name="edit_task">Edit!</button>
+    </div>
+  </div>
 </form>
-<form method="POST">
-  {% csrf_token %}
-  {% for task in tasks %}
-  {% if task.important == True %}
-  <a>{{task}}</a>
-  <input type="checkbox" name="done" value="{{task}}"></br>
-  {% elif task.important == False and task.done == False %}
-  <a>{{task}}</a>
-  <input type="checkbox" name="important" value="{{task}}">
-  <input type="checkbox" name="done" value="{{task}}"><br>
-  {% else %}
-  <a>{{task}}</a><br>
-  {% endif %}
-  {% endfor %}
-  <input type="text" name="password" placeholder="Password" />
-  <button type="submit" name="Submit" name="edit_task">Edit!</button>
-</form>
+<div class="info row" >
+<div class="col-6"><b><p>&#8469; - Move the task to normal list</p>
+<p>&#33; - Move the task to important list</p></b></div>
+<div class="col-6"><b><p>&#10003; - Move the task to done list</p>
+<p>&#215; - Delete the task</p></b></div></div>
 {% endblock content%}
